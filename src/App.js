@@ -7,7 +7,7 @@ import Label from "./components/label";
 import Row from "./components/row";
 import axios from "axios";
 
-const API_URL = "http://localhost:8082";
+const API_URL = "http://spoll.longurl.co.uk";
 const INITIAL_STATE = {
   isLoggedIn: false,
   name: "",
