@@ -30,8 +30,8 @@ pipeline {
                 sshTransfer(
                   cleanRemote: true,
                   remoteDirectory: "spoll-frontend",
-                  sourceFiles: "dist/",
-                  removePrefix: "dist/"
+                  sourceFiles: "build/",
+                  removePrefix: "build/"
                 )
               ])
           ]
