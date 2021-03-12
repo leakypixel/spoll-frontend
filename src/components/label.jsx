@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React, { useState, useEffect, useCallback } from "react";
 
 const Label = styled.label`
   font-family: "DotGothic16", sans-serif;

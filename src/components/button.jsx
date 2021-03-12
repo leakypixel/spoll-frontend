@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React, { useState, useEffect, useCallback } from "react";
 
 const Button = styled.button`
   font-family: "DotGothic16", sans-serif;

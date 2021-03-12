@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React, { useState, useEffect, useCallback } from "react";
 
 const Main = styled.main`
   background-color: #282c34;

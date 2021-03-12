@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import React, { useState, useEffect, useCallback } from "react";
 
 const Input = styled.input`
   background-color: #282c34;
