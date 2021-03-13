@@ -43,7 +43,7 @@ function App() {
       if (data.error) {
         setMessage(data.error.message);
       } else {
-        setMessage(null);
+        setMessage("data saved");
         setUserData({ ...userData, factions: data.factions });
       }
     },
@@ -66,14 +66,20 @@ function App() {
   );
 
   const logout = () => {
+    setMessage(null);
     setUserData(INITIAL_STATE);
+  };
+
+  const updateUserData = userData => {
+    setMessage(null);
+    setUserData(userData);
   };
 
   return (
     <Main>
       <Column maxWidth="700px">
         <User
-          setUserData={setUserData}
+          setUserData={updateUserData}
           userData={userData}
           register={register}
           getUserData={getUserData}
@@ -91,7 +97,7 @@ function App() {
             userData={userData}
             getUserData={getUserData}
             saveUserData={saveUserData}
-            setUserData={setUserData}
+            setUserData={updateUserData}
           />
         )}
       </Column>
