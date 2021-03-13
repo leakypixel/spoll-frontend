@@ -5,7 +5,7 @@ const Label = styled.label`
   letter-spacing: 0.125em;
   text-transform: uppercase;
   font-size: 1em;
-  line-height: 1em;
+  line-height: 1.6em;
   margin: 0.6em;
   padding: 0.3em;
   flex: 1;

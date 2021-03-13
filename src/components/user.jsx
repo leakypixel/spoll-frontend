@@ -30,7 +30,7 @@ const User = ({ setUserData, userData, getUserData, register, logout }) => {
           <Row>
             <Label>Password</Label>
             <Input
-              type="text"
+              type="password"
               name="password"
               value={userData.password}
               onChange={event =>

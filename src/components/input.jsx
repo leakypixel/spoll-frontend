@@ -5,7 +5,7 @@ const Input = styled.input`
   display: inline-block;
   color: white;
   font-size: 1em;
-  line-height: 1em;
+  line-height: 1.6em;
   margin: 0.6em;
   padding: 0.3em;
   flex: 2;

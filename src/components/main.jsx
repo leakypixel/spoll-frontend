@@ -8,7 +8,7 @@ const Main = styled.main`
   align-items: center;
   color: white;
   font-size: 1em;
-  line-height: 1em;
+  line-height: 1.6em;
   flex: 1;
   width: 100%;
   min-height: 100vh;

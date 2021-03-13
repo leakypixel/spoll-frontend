@@ -8,7 +8,7 @@ const Button = styled.button`
   display: inline-block;
   color: white;
   font-size: 0.8em;
-  line-height: 1em;
+  line-height: 1.6em;
   margin: 2em 0.6em;
   padding: 0.6em;
   font-weight: bold;
