@@ -10,7 +10,6 @@ const Factions = ({
   setUserData,
   saveUserData
 }) => {
-  console.log("userData", userData);
   return (
     <>
       <Row>

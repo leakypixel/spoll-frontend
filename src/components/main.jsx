@@ -11,6 +11,7 @@ const Main = styled.main`
   line-height: 1.6em;
   flex: 1;
   width: 100%;
+  margin: auto;
   min-height: 100vh;
   padding: 20vh 0;
   box-sizing: border-box;

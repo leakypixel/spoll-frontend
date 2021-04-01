@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import User from "./components/user";
 import Factions from "./components/factions";
+import FactionChoices from "./components/faction-choices";
 import Column from "./components/column";
 import Main from "./components/main";
 import Label from "./components/label";
@@ -8,17 +9,36 @@ import Row from "./components/row";
 import axios from "axios";
 
 const API_URL = "https://spoll.longurl.co.uk";
-const INITIAL_STATE = {
+const USER_INITIAL_STATE = {
   isLoggedIn: false,
   name: "",
   password: "",
   factions: []
 };
 
+const CHOICE_INITIAL_STATE = {};
+
 function App() {
-  const [userData, setUserData] = useState(INITIAL_STATE);
+  const [userData, setUserData] = useState(USER_INITIAL_STATE);
+  const [choiceData, setChoiceData] = useState(CHOICE_INITIAL_STATE);
   const [message, setMessage] = useState(null);
 
+  const getChoiceData = useCallback(
+    async () => {
+      const { data } = await axios.get(`${API_URL}/votes`);
+      if (data.error) {
+        setMessage(
+          `The following players have voted: ${data.voted.join(", ")}`
+        );
+
+        setChoiceData(data.voted);
+      } else {
+        setMessage(null);
+        setChoiceData(data);
+      }
+    },
+    [setChoiceData]
+  );
   const getUserData = useCallback(
     async () => {
       const { data } = await axios.post(`${API_URL}/user/${userData.name}`, {
@@ -31,7 +51,7 @@ function App() {
         setUserData({ ...userData, factions: data.factions, isLoggedIn: true });
       }
     },
-    [userData, setUserData]
+    [setUserData, userData]
   );
 
   const saveUserData = useCallback(
@@ -67,7 +87,7 @@ function App() {
 
   const logout = () => {
     setMessage(null);
-    setUserData(INITIAL_STATE);
+    setUserData(USER_INITIAL_STATE);
   };
 
   const updateUserData = userData => {
@@ -75,9 +95,12 @@ function App() {
     setUserData(userData);
   };
 
+  const revealDate = 1617368400 * 1000;
+  const reveal = Date.now() >= revealDate;
+
   return (
     <Main>
-      <Column maxWidth="700px">
+      <Column maxWidth="90vw">
         <User
           setUserData={updateUserData}
           userData={userData}
@@ -91,13 +114,20 @@ function App() {
           </Row>
         )}
         <Row />
+        {userData.isLoggedIn &&
+          !reveal && (
+            <Factions
+              selectedFactions={userData.factions}
+              userData={userData}
+              getUserData={getUserData}
+              saveUserData={saveUserData}
+              setUserData={updateUserData}
+            />
+          )}
         {userData.isLoggedIn && (
-          <Factions
-            selectedFactions={userData.factions}
-            userData={userData}
-            getUserData={getUserData}
-            saveUserData={saveUserData}
-            setUserData={updateUserData}
+          <FactionChoices
+            choiceData={choiceData}
+            getChoiceData={getChoiceData}
           />
         )}
       </Column>

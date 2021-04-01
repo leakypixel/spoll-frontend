@@ -5,6 +5,7 @@ const Row = styled.div`
   flex-flow: row wrap;
   justify-content: stretch;
   align-items: center;
+  box-sizing: border-box;
   flex: 1;
   width: 100%;
   margin: 0.6em 0;
