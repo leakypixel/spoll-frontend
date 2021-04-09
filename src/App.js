@@ -95,7 +95,7 @@ function App() {
     setUserData(userData);
   };
 
-  const revealDate = 1617368400 * 1000;
+  const revealDate = 1617991200 * 1000;
   const reveal = Date.now() >= revealDate;
 
   return (
