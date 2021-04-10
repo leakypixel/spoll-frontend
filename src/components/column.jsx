@@ -6,6 +6,7 @@ const Column = styled.div`
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  flex: 1;
   box-sizing: border-box;
   max-width: ${props => (props.maxWidth ? props.maxWidth : "100%")};
 `;
