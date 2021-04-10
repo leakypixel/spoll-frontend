@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import User from "./components/user";
 import Factions from "./components/factions";
 import FactionChoices from "./components/faction-choices";
@@ -26,6 +26,14 @@ function App() {
   const [winData, setWinData] = useState(WIN_INITIAL_STATE);
   const [message, setMessage] = useState(null);
 
+  const saveLogin = (name, password) => {
+    localStorage.setItem("spoll-login", JSON.stringify({ name, password }));
+  };
+
+  const getLogin = () => {
+    return JSON.parse(localStorage.getItem("spoll-login"));
+  };
+
   const getChoiceData = useCallback(
     async () => {
       const { data } = await axios.get(`${API_URL}/votes`);
@@ -52,11 +60,17 @@ function App() {
       } else {
         setMessage(null);
         setUserData({ ...userData, factions: data.factions, isLoggedIn: true });
+        saveLogin(userData.name, userData.password);
       }
     },
     [setUserData, userData]
   );
-
+  useEffect(
+    () => {
+      getUserData();
+    },
+    [userData.password] // eslint-disable-line react-hooks/exhaustive-deps
+  );
   const saveUserData = useCallback(
     async () => {
       const { data } = await axios.put(`${API_URL}/vote/${userData.name}`, {
@@ -113,6 +127,7 @@ function App() {
       } else {
         setMessage(null);
         setUserData({ ...userData, factions: data.factions, isLoggedIn: true });
+        saveLogin(userData.name, userData.password);
       }
     },
     [userData, setUserData]
@@ -121,6 +136,7 @@ function App() {
   const logout = () => {
     setMessage(null);
     setUserData(USER_INITIAL_STATE);
+    saveLogin();
   };
 
   const updateUserData = userData => {
@@ -154,6 +170,7 @@ function App() {
           register={register}
           getUserData={getUserData}
           logout={logout}
+          getLogin={getLogin}
         />
         {message && (
           <Row>

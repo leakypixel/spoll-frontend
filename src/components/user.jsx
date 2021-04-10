@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Column from "./column";
 import Input from "./input";
 import Button from "./button";
 import Label from "./label";
 import Row from "./row";
 
-const User = ({ setUserData, userData, getUserData, register, logout }) => {
+const User = ({
+  setUserData,
+  userData,
+  getUserData,
+  register,
+  logout,
+  getLogin
+}) => {
+  const [formData, setFormData] = useState({ name: "", password: "" });
+  useEffect(() => {
+    const savedDetails = getLogin();
+    if (savedDetails && savedDetails.name && savedDetails.password) {
+      setUserData({ ...savedDetails, isLoggedIn: true });
+    }
+  }, []);// eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Column>
       {userData.isLoggedIn ? (
@@ -20,10 +35,10 @@ const User = ({ setUserData, userData, getUserData, register, logout }) => {
             <Input
               type="text"
               name="name"
-              value={userData.name}
+              value={formData.name}
               onChange={event => {
                 const val = event.target.value;
-                setUserData({ ...userData, name: val });
+                setFormData({ ...userData, name: val });
               }}
             />
           </Row>
@@ -32,14 +47,21 @@ const User = ({ setUserData, userData, getUserData, register, logout }) => {
             <Input
               type="password"
               name="password"
-              value={userData.password}
+              value={formData.password}
               onChange={event =>
-                setUserData({ ...userData, password: event.target.value })
+                setFormData({ ...formData, password: event.target.value })
               }
             />
           </Row>
           <Row>
-            <Button onClick={getUserData}>Log in</Button>
+            <Button
+              onClick={() => {
+                setUserData(formData);
+                getUserData();
+              }}
+            >
+              Log in
+            </Button>
             <Button onClick={register}>Register</Button>
           </Row>
         </>
