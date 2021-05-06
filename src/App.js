@@ -144,7 +144,7 @@ function App() {
     setUserData(userData);
   };
 
-  const revealDate = 1618077600 * 1000;
+  const revealDate = 1620410400 * 1000;
   const reveal = Date.now() >= revealDate;
   const games = [
     {
